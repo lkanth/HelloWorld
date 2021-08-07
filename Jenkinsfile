@@ -100,15 +100,15 @@ pipeline
 		
 		// Enter VMWare vCenter data center name in which VM must be deployed
 		
-		HCMX_VCENTER_DATACENTER = "VMWarevCenterDatacenterName"
+		HCMX_VCENTER_DATACENTER = "CAT"
 		
 		// Enter VMWare vCenter template name to be used for deployment of VM
 		
-		HCMX_VCENTER_VM_TEMPLATE = "VMWarevCenterVMTemplateName"
+		HCMX_VCENTER_VM_TEMPLATE = "catvmlmdep_t"
 		
 		// Enter VMWare vCenter custom specification to be used for deployment of VM
 		
-		HCMX_VCENTER_VM_CUSTOMSPEC = "VMWarevCenterCustomSpecName"
+		HCMX_VCENTER_VM_CUSTOMSPEC = "(Ts)catvmLinuxDHCP"
 		
 		// Enter VM name prefix to be used during deployment of VM
 		

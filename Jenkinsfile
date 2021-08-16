@@ -570,6 +570,7 @@ pipeline
 										}
 										
 										echo "HCMX: Get subscription ID"
+										sleep(HCMX_REQ_STATUS_CHK_INTERVAL_SECONDS)
 										// Build HCMX Get subscription URL using the request ID that was obtained in earlier steps.
 										final String HCMX_GET_SUBSCRIPTION_URL = "https://" + HCMX_EXT_ACCESS_HOSTNAME + "/rest/" + HCMX_TENANT_ID + "/ems/Subscription?filter=(InitiatedByRequest=%27" + HCMX_REQUEST_ID + "%27%20and%20Status=%27Active%27)&layout=Id"
 										

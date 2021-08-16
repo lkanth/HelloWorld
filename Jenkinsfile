@@ -572,18 +572,18 @@ pipeline
 										echo "HCMX: Get subscription ID"
 										sleep(HCMX_REQ_STATUS_CHK_INTERVAL_SECONDS)
 										// Build HCMX Get subscription URL using the request ID that was obtained in earlier steps.
-										final String HCMX_GET_SUBSCRIPTION_URL = "https://" + HCMX_EXT_ACCESS_HOSTNAME + "/rest/" + HCMX_TENANT_ID + "/ems/Subscription?filter=(InitiatedByRequest=%27" + HCMX_REQUEST_ID + "%27%20and%20Status=%27Active%27)&layout=Id"
+										final String HCMX_GET_SUBSCRIPTION_URL = "https://" + HCMX_EXT_ACCESS_HOSTNAME + "/rest/" + HCMX_TENANT_ID + "/ems/Subscription?filter=(InitiatedByRequest=%27" + HCMX_REQUEST_ID + "%27)&layout=Id"
 										
 										String subResponse
 										int subResCode
 										// Submit a REST API call to HCMX to get subscription ID
 										if (USE_PROXY.equalsIgnoreCase("NO") || ((USE_PROXY.equalsIgnoreCase("YES")) && (PROXY_REQUIRES_CREDENTIALS.equalsIgnoreCase("NO"))))
 										{
-											(subResponse, subResCode)  = sh(script: '''set -x;''' + curlCMD + ''' -s -w '\\n%{response_code}' "''' + HCMX_GET_SUBSCRIPTION_URL + '''" -k -H "Content-Type: application/json" -H "Accept: application/json" -H "Accept: text/plain" --cookie "TENANTID=$HCMX_TENANT_ID;SMAX_AUTH_TOKEN="''' + SMAX_AUTH_TOKEN + '''"" ''', returnStdout: true).trim().tokenize("\n")
+											(subResponse, subResCode)  = sh(script: '''set +x;''' + curlCMD + ''' -s -w '\\n%{response_code}' "''' + HCMX_GET_SUBSCRIPTION_URL + '''" -k -H "Content-Type: application/json" -H "Accept: application/json" -H "Accept: text/plain" --cookie "TENANTID=$HCMX_TENANT_ID;SMAX_AUTH_TOKEN="''' + SMAX_AUTH_TOKEN + '''"" ''', returnStdout: true).trim().tokenize("\n")
 										}
 										else
 										{
-											(subResponse, subResCode)  = sh(script: '''set -x;''' + curlCMD + ''' --proxy-user $PROXY_USER:$PROXY_USER_PSW -s -w '\\n%{response_code}' "''' + HCMX_GET_SUBSCRIPTION_URL + '''" -k -H "Content-Type: application/json" -H "Accept: application/json" -H "Accept: text/plain" --cookie "TENANTID=$HCMX_TENANT_ID;SMAX_AUTH_TOKEN="''' + SMAX_AUTH_TOKEN + '''"" ''', returnStdout: true).trim().tokenize("\n")
+											(subResponse, subResCode)  = sh(script: '''set +x;''' + curlCMD + ''' --proxy-user $PROXY_USER:$PROXY_USER_PSW -s -w '\\n%{response_code}' "''' + HCMX_GET_SUBSCRIPTION_URL + '''" -k -H "Content-Type: application/json" -H "Accept: application/json" -H "Accept: text/plain" --cookie "TENANTID=$HCMX_TENANT_ID;SMAX_AUTH_TOKEN="''' + SMAX_AUTH_TOKEN + '''"" ''', returnStdout: true).trim().tokenize("\n")
 										}
 										
 										if (subResCode == 200 && subResponse && subResponse.trim()) 
